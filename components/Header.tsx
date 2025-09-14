@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 
-export const Header: React.FC = () => {
+interface HeaderProps {
+    onLoginClick: () => void;
+}
+
+export const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -39,7 +43,7 @@ export const Header: React.FC = () => {
                     <a className="text-sm font-medium text-gray-600 transition-colors hover:text-[#135bec]" href="#testimonials" onClick={handleNavClick}>Testimonials</a>
                 </nav>
                 <div className="flex items-center gap-4">
-                    <button className="hidden rounded-lg px-4 py-2 text-sm font-bold text-gray-600 transition-colors hover:bg-gray-100 sm:block">Log In</button>
+                    <button onClick={onLoginClick} className="hidden rounded-lg px-4 py-2 text-sm font-bold text-gray-600 transition-colors hover:bg-gray-100 sm:block">Log In</button>
                     {/* Mobile Menu Button */}
                     <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu" aria-expanded={isMenuOpen}>
                         {isMenuOpen ? (
@@ -58,7 +62,7 @@ export const Header: React.FC = () => {
                         <a className="text-base font-medium text-gray-700 transition-colors hover:text-[#135bec]" href="#features" onClick={handleNavClick}>Features</a>
                         <a className="text-base font-medium text-gray-700 transition-colors hover:text-[#135bec]" href="#faqs" onClick={handleNavClick}>FAQs</a>
                         <a className="text-base font-medium text-gray-700 transition-colors hover:text-[#135bec]" href="#testimonials" onClick={handleNavClick}>Testimonials</a>
-                        <button className="w-full rounded-lg px-4 py-2 text-sm font-bold text-gray-600 transition-colors bg-gray-100 hover:bg-gray-200 mt-2">Log In</button>
+                        <button onClick={() => { onLoginClick(); setIsMenuOpen(false); }} className="w-full rounded-lg px-4 py-2 text-sm font-bold text-gray-600 transition-colors bg-gray-100 hover:bg-gray-200 mt-2">Log In</button>
                     </nav>
                 </div>
             )}

@@ -10,11 +10,13 @@ import { Features } from './components/Features';
 import { Testimonials } from './components/Testimonials';
 import { Footer } from './components/Footer';
 import { FAQs } from './components/FAQs';
+import { LoginModal } from './components/LoginModal';
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [strategy, setStrategy] = useState<Strategy | null>(null);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const resultsRef = useRef<HTMLDivElement>(null);
 
   const handleGenerate = useCallback(async (url: string) => {
@@ -54,7 +56,7 @@ const App: React.FC = () => {
 
   return (
     <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden">
-        <Header />
+        <Header onLoginClick={() => setIsLoginModalOpen(true)} />
         <main className="flex-grow">
           <ContentInput onGenerate={handleGenerate} isLoading={isLoading} />
           
@@ -74,6 +76,7 @@ const App: React.FC = () => {
 
         </main>
         <Footer />
+        {isLoginModalOpen && <LoginModal onClose={() => setIsLoginModalOpen(false)} />}
     </div>
   );
 };
